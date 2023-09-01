@@ -38,17 +38,17 @@ SONARR_PORT=9992
 RADARR_PORT=9993
 ```
 
-You should set the UID and GID to be your user's UID and GID (which you can find with the `id` command).
+★ Set the UID and GID to be your user's UID and GID (which you can find with the `id` command).
 
-Set TZ to be your local time zone.
+★ Set TZ to be your local time zone.
 
-PLEXSTACK_HOME should be the working directory where you cloned this repository.
+★ PLEXSTACK_HOME should be the working directory where you cloned this repository.
 
 You can leave the ports alone, or change them if you're already using those ports for something else on your host.
 
 # Start the servers
 
-While in PLEXSTACK_HOME, enter the following command to start the servers:
+★ While in PLEXSTACK_HOME, enter the following command to start the servers:
 
 ```
 docker compose up -d
@@ -66,27 +66,30 @@ SAB will block access to the web site from hosts it doesn't recognize.  To allow
 you need to set a config setting in a config file that is created after sabnzb starts up.
 
 Assuming you've already started the containers in the previous step, SAB should have created 
-the config file you need to edit.   So shut down the containers:
+the config file you need to edit.   
+
+★ First, shut down the containers down again:
 
 ```
 docker compose down
 ```
 
-Now edit `sabnzbd/config/sabnzbd.ini`, find the setting for `host_whitelist` and add all the hostnames 
+★ Now edit `sabnzbd/config/sabnzbd.ini`, find the setting for `host_whitelist` and add all the hostnames 
 that will be used to connect to sabnzbd.
 
-You must include `sabnzbd` as one of the hostnames.
+★ You must include `sabnzbd` as one of the hostnames -- that's the hostname that other containers will use 
+to refer to this server.
 
-Then re-start the containers with `docker-compose up`.
+★ Then re-start the containers with `docker-compose up -d`.
 
 # Configure your usenet service provider into SAB
 
-Visit the SAB server configuration page.  It's available at this URL: http://hostname:9991/config/server/ 
+★ First, visit the SAB web page.  You'll be presented with a quick-start wizard.  Pick your language and then 
+click "Start Wizard >".  
 
-Alternatively, you can find the server configuration page from the home screen by clicking on the gear icon to 
-get to a system info page, then clicking on the "Servers" top-nav item; it has an "up and down arrow" icon.
-
-Click **Add Server** and enter info about your usenet provider.
+★ On the next page, enter the requested information about your usenet service provider.  Check the advanced settings; 
+my usenet service provider allows me 50 simultaneous connections, many more than the default value in SAB.
+Use the "Test Server" button to validate the information and then click "Next >".  
 
 # Configure SAB into Sonarr and Radarr
 
@@ -97,12 +100,10 @@ Visit the SAB general configuration page.  It's available at this URL: http://ho
 Alternatively, you can find the general configuration page from the home screen by clicking on the gear icon to 
 get to a system info page, then clicking on the "General" top-nav item; it has a gear icon.
 
-Copy the "NZB Key" from the "Security" section of this page.
+★ Copy the "API Key" from the "Security" section of this page.  *(Note: The NZB key seems more appropriate for use by Sonarr, 
+but this didn't work when I tried it.)*
 
-While you're on this page, change the "External internet access" setting to be "Add NZB files", then click "Save Changes".
-
-Because you made a change, you need to re-start the container.  I just stop everything with `docker compose down` 
-and then start it with `docker compose up`, but you can 
+★ While you're on this page, change the "External internet access" setting to be "Add NZB files", then click "Save Changes".
 
 ## Configure SAB into Sonarr
 
@@ -111,13 +112,14 @@ Visit the Sonarr Download Clients configuration page.  It's available at this UR
 Alternatively, you can find the Download Clients configuration page from the home screen by clicking "Settings" in the 
 side-nav, and then clicking on "Download Clients". 
 
-From the Download Clients configuration page, click the big "plus" icon, and then click on "SABnzbd" in the "Usenet" section.
+★ From the Download Clients configuration page, click the big "plus" icon, and then click on "SABnzbd" in the "Usenet" section.
 
-You'll need to enter the following information:
+★ You'll need to enter the following information:
 
  - Name: SAB (or whatever you want to name it)
  - Host: sabnzbd (this is the hostname docker compose set up for the containers to use when talking to each other)
- - Port: 8080 (not 9991 -- that's the port exposed by docker for access from the outside)
  - API Key: enter the NZB you copied from SAB in the previous step
 
-Hit the "test" button.   
+Note: leave the port at the default 8080; don't change it to 9991. 9991 is the port exposed by docker for access from the outside.
+
+★ Hit the "Test" button, then hit "Save".
