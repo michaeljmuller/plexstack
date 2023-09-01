@@ -1,0 +1,60 @@
+# This docker-compose file defines a group of containers that collect media files from usenet
+# and make them available for viewing by Plex. 
+#
+# This file depends on the following environment variables:
+#
+# UID: the user id of the user that should own the volumes mounted to the containers -- mandatory
+# GID: the group id of the user that should own the volumes mounted to the containers -- mandatory
+# TZ: the time zone to be used by the containers, ex: America/Denver -- mandatory
+# PLEXSTACK_HOME: the root of the plex stack (plex, sonarr, radarr, sabnzbd) -- optional, default /opt/plexstack
+# SABNZBD_PORT: the port exposed by docker for communication with sabnzbd -- optional, default 9991
+# SONARR_PORT: the port exposed by docker for communication with sonarr -- optional, default 9992
+# RADARR_PORT: the port exposed by docker for communication with radarr -- optional, default 9993
+#
+# One easy way to set these environment variables is with a .env file in the same directory as this docker-compose file
+
+---
+version: "2.1"
+services:
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    environment:
+      - PUID=${UID:?missing required UID environment variable}
+      - PGID=${GID:?missing required GID environment variable}
+      - TZ=${TZ:?missing required TZ envronment variable}
+    volumes:
+      - ${PLEXSTACK_HOME:-/opt/plexstack}/sabnzbd/config:/config
+      - ${PLEXSTACK_HOME:-/opt/plexstack}/sabnzbd/downloads:/downloads
+      - ${PLEXSTACK_HOME:-/opt/plexstack}/sabnzbd/incomplete-downloads:/incomplete-downloads
+    ports:
+      - ${SABNZBD_PORT:-9991}:8080
+    restart: unless-stopped      
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=${UID:?missing required UID environment variable}
+      - PGID=${GID:?missing required GID environment variable}
+      - TZ=${TZ:?missing required TZ envronment variable}
+    volumes:
+      - ${PLEXSTACK_HOME:-/opt/plexstack}/sonarr/config:/config
+      - ${PLEXSTACK_HOME:-/opt/plexstack}/sonarr/tv:/tv
+      - ${PLEXSTACK_HOME:-/opt/plexstack}/sabnzbd/downloads:/downloads
+    ports:
+      - ${SONARR_PORT:-9992}:8989
+    restart: unless-stopped
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=${UID:?missing required UID environment variable}
+      - PGID=${GID:?missing required GID environment variable}
+      - TZ=${TZ:?missing required TZ envronment variable}
+    volumes:
+      - ${PLEXSTACK_HOME:-/opt/plexstack}/radarr/config:/config
+      - ${PLEXSTACK_HOME:-/opt/plexstack}/radarr/tv:/tv
+      - ${PLEXSTACK_HOME:-/opt/plexstack}/sabnzbd/downloads:/downloads
+    ports:
+      - ${RADARR_PORT:-9993}:7878
+    restart: unless-stopped
