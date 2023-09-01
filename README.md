@@ -135,4 +135,25 @@ Perform the same steps again for Radarr (http://hostname:9992/).
 
 ★ Hit the "Test" button, then hit "Save".
 
+# Configure the Indexer into Sonarr and Radarr
+
+## Configure the Indexer into Sonarr
+
+The configure indexers page for Sonarr is here: http://mini:9992/settings/indexers
+
+It can be reached through the UI by clicking the "Settings" entry in the side-nav, and then clicking on "Indexers".
+
+★ From the Indexers configuration page, click the big "plus" icon and then on the protocol your indexer supports.  (For my indexer, NZB Geek, the protocol is Newznab.)
+
+★ Enter a name for your indexer, your indexer's URL, and your indexer's API key.  Then click "Test" and "Save".  *(Note, your indexer probably has a separate URL for use by Sonarr/Radarr than the one you visit in a web browser.  NZB Geek's URL is http://nzbgeek.info, but I need to configure http://api.nzbgeek.info into Sonarr/Radarr.)*
+
+## Configure the Indexer into Radarr
+
+The steps to configure your indexer into Radarr are the same as for Sonarr.
+
+The configure indexers page for Radarr is here: http://mini:9993/settings/indexers
+
+★ From the Indexers configuration page, click the big "plus" icon and then on the protocol your indexer supports.  
+
+★ Enter a name for your indexer, your indexer's URL, and your indexer's API key. Then click "Test" and "Save".  
 
