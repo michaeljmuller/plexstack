@@ -71,3 +71,7 @@ that will be used to connect to sabnzbd.
 
 Then re-start the containers with `docker-compose up`.
 
+# Configure your usenet service provider into SAB
+
+Visit http://hostname:9991/config/server/ (which is accessible from the top-nav; the icon is an up and down arrow), 
+click **Add Server** and enter info about your usenet provider.
