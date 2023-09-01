@@ -97,8 +97,9 @@ Use the "Test Server" button to validate the information and then click "Next >"
 
 Visit the SAB general configuration page.  It's available at this URL: http://hostname:9991/config/general/
 
-Alternatively, you can find the general configuration page from the home screen by clicking on the gear icon to 
-get to a system info page, then clicking on the "General" top-nav item; it has a gear icon.
+Alternatively, you can find the general configuration page from the home screen (http://hostname:9991/) 
+by clicking on the gear icon to get to a system info page, then clicking on the "General" top-nav item; 
+it has a gear icon.
 
 ★ Copy the "API Key" from the "Security" section of this page.  *(Note: The NZB key seems more appropriate for use by Sonarr, 
 but this didn't work when I tried it.)*
@@ -109,8 +110,8 @@ but this didn't work when I tried it.)*
 
 Visit the Sonarr Download Clients configuration page.  It's available at this URL: http://hostname:9992/settings/downloadclients
 
-Alternatively, you can find the Download Clients configuration page from the home screen by clicking "Settings" in the 
-side-nav, and then clicking on "Download Clients". 
+Alternatively, you can find the Download Clients configuration page from the home screen (http://hostname:9992/) 
+by clicking "Settings" in the side-nav, and then clicking on "Download Clients". 
 
 ★ From the Download Clients configuration page, click the big "plus" icon, and then click on "SABnzbd" in the "Usenet" section.
 
@@ -123,3 +124,15 @@ side-nav, and then clicking on "Download Clients".
 Note: leave the port at the default 8080; don't change it to 9991. 9991 is the port exposed by docker for access from the outside.
 
 ★ Hit the "Test" button, then hit "Save".
+
+## Configure SAB into Radarr
+
+Perform the same steps again for Radarr (http://hostname:9992/). 
+
+★ From the Download Clients configuration page, click the big "plus" icon, and then click on "SABnzbd" in the "Usenet" section.
+
+★ Enter the name (SAB), host (sabnzbd), and API Key (from SAB; the same key you put in Sonarr).
+
+★ Hit the "Test" button, then hit "Save".
+
+
