@@ -16,6 +16,8 @@ The following services are used:
  - An NZB indexer (such as NZB Geek)
  - A Usenet service provider (such as Astraweb)
  - Plex
+   
+![](diagrams/plex-stack.png)
 
 The basic configuration steps need to be performed:
  - Start the servers
@@ -181,8 +183,7 @@ The configure indexers page for Radarr is here: http://mini:9993/settings/indexe
 # Configure Root Folders into Sonarr and Radarr
 
 After movies and series are done downloading, Sonarr and Radarr move them from the `Downloads` folder on the local machine
-to the local `Root Folder`.  *(Note: You'd think that, since these apps have an "incomplete downloads" folder, that
-"Downloads" could go directly into the final storage location, but apparently this is not the case.)*
+to the local `Root Folder`, but we need to configure that folder.
 
 ## Configure the Root Folder in Sonarr
 
@@ -191,12 +192,12 @@ Visit the Sonarr "Media Management" configuration page at this URL: http://mini:
 Alternatively, you can find the Media Management page from the home screen by clicking "Settings" in the side-nav and
 then clicking on "Media Management".
 
-Click the big blue "Add Root Folder" at the bottom of the page, select the folder named "root-folder" (the path will say `/root-folder/`)
+★ Click the big blue "Add Root Folder" at the bottom of the page, select the folder named "root-folder" (the path will say `/root-folder/`)
 and then click "Ok".
 
 ## Import previously-downloaded TV into Sonarr
 
-In the "Media Management" configuration page, click on the root folder link ("/root-folder").  Wait while Sonarr inspects all
+★ In the "Media Management" configuration page, click on the root folder link ("/root-folder").  Wait while Sonarr inspects all
 the shows, and then click the "Import" button at the bottom of the page.
 
 ## Configure the Root Folder in Radarr
