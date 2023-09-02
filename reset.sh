@@ -15,4 +15,4 @@ resetDir $thisDir/sonarr/tv
 resetDir $thisDir/sabnzbd/config
 resetDir $thisDir/sabnzbd/downloads
 resetDir $thisDir/sabnzbd/incomplete-downloads
-
+resetDir $thisDir/plex/config

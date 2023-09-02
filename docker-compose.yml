@@ -6,6 +6,7 @@
 # UID: the user id of the user that should own the volumes mounted to the containers -- mandatory
 # GID: the group id of the user that should own the volumes mounted to the containers -- mandatory
 # TZ: the time zone to be used by the containers, ex: America/Denver -- mandatory
+# MEDIA_ROOT: the root of the final location for media streamed by plex -- mandatory
 # PLEXSTACK_HOME: the root of the plex stack (plex, sonarr, radarr, sabnzbd) -- optional, default /opt/plexstack
 # SABNZBD_PORT: the port exposed by docker for communication with sabnzbd -- optional, default 9991
 # SONARR_PORT: the port exposed by docker for communication with sonarr -- optional, default 9992
@@ -41,6 +42,7 @@ services:
       - ${PLEXSTACK_HOME:-/opt/plexstack}/sonarr/config:/config
       - ${PLEXSTACK_HOME:-/opt/plexstack}/sonarr/tv:/tv
       - ${PLEXSTACK_HOME:-/opt/plexstack}/sabnzbd/downloads:/downloads
+      - ${MEDIA_ROOT:?missing required MEDIA_ROOT environment variable}/series:/root-folder
     ports:
       - ${SONARR_PORT:-9992}:8989
     restart: unless-stopped
@@ -53,8 +55,25 @@ services:
       - TZ=${TZ:?missing required TZ envronment variable}
     volumes:
       - ${PLEXSTACK_HOME:-/opt/plexstack}/radarr/config:/config
-      - ${PLEXSTACK_HOME:-/opt/plexstack}/radarr/tv:/tv
+      - ${PLEXSTACK_HOME:-/opt/plexstack}/radarr/movies:/movies
       - ${PLEXSTACK_HOME:-/opt/plexstack}/sabnzbd/downloads:/downloads
+      - ${MEDIA_ROOT:?missing required MEDIA_ROOT environment variable}/movies:/root-folder
     ports:
       - ${RADARR_PORT:-9993}:7878
+    restart: unless-stopped
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=${UID:?missing required UID environment variable}
+      - PGID=${GID:?missing required GID environment variable}
+      - TZ=${TZ:?missing required TZ envronment variable}
+      - VERSION=docker
+    volumes:
+      - ${PLEXSTACK_HOME:-/opt/plexstack}/plex/config:/config
+      - ${MEDIA_ROOT:?missing required MEDIA_ROOT environment variable}/series:/series
+      - ${MEDIA_ROOT:?missing required MEDIA_ROOT environment variable}/bill-series:/bill-series
+      - ${MEDIA_ROOT:?missing required MEDIA_ROOT environment variable}/movies:/movies
+      - ${MEDIA_ROOT:?missing required MEDIA_ROOT environment variable}/bill-movies:/bill-movies
     restart: unless-stopped

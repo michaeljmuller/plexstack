@@ -1,4 +1,5 @@
 # Plexstack
+
 This project includes a docker-compose file and a directory structure that creates 
 a group of docker containers that run web applications (Sonarr and Radarr) for finding 
 and downloading videos from usenet and then displaying that video on Plex.
@@ -19,9 +20,10 @@ The following services are used:
 The basic configuration steps need to be performed:
  - Start the servers
  - Configure SAB with info about your Usenet service provider (Astraweb)
- - Configure Sonarr with info about your download client (SAB) and indexer (NZB Geek)
- - Configure Radarr with info about your download client (SAB) and indexer (NZB Geek)
- - Configure Plex, Sonarr, and Radarr to use shared directories (requires compatible permission / user & group ids)
+ - Configure Sonarr and Radarr with:
+   - Info about your download client (SAB)
+   - Info about your indexer (NZB Geek)
+   - A location for the media assets after they're done downloading (the "root folders")
 
 Additional configuration:
  - Disable ISO
@@ -35,6 +37,7 @@ following contents:
 UID=1001
 GID=1001
 TZ=America/Denver
+MEDIA_ROOT=/users/plex/plexmedia
 PLEXSTACK_HOME=/opt/plexstack
 SABNZBD_PORT=9991
 SONARR_PORT=9992
@@ -44,6 +47,8 @@ RADARR_PORT=9993
 ★ Set the UID and GID to be your user's UID and GID (which you can find with the `id` command).
 
 ★ Set TZ to be your local time zone.
+
+★ Set MEDIA_ROOT to be the root of where your TV and Movies are stored.
 
 ★ PLEXSTACK_HOME should be the working directory where you cloned this repository.
 
@@ -93,6 +98,19 @@ click "Start Wizard >".
 ★ On the next page, enter the requested information about your usenet service provider.  Check the advanced settings; 
 my usenet service provider allows me 50 simultaneous connections, many more than the default value in SAB.
 Use the "Test Server" button to validate the information and then click "Next >".  
+
+# Configure SAB's Download Folders
+
+Visit the SAB folder configuration page at http://hostname:9991/config/folders/
+
+Alternatively, from the home screen (http://hostname:9991/) click the gear icon to display a system info
+page and then clock on the folder icon in the top menu to get to the folder configuration page.
+
+★ Change the Temporary Download Folder to `/incomplete-downloads`.
+
+★ Change the Completed Download Folder to `/downloads`.
+
+★ Click "Save Changes"
 
 # Configure SAB into Sonarr and Radarr
 
@@ -160,9 +178,43 @@ The configure indexers page for Radarr is here: http://mini:9993/settings/indexe
 
 ★ Enter a name for your indexer, your indexer's URL, and your indexer's API key. Then click "Test" and "Save".  
 
+# Configure Root Folders into Sonarr and Radarr
+
+After movies and series are done downloading, Sonarr and Radarr move them from the `Downloads` folder on the local machine
+to the local `Root Folder`.  *(Note: You'd think that, since these apps have an "incomplete downloads" folder, that
+"Downloads" could go directly into the final storage location, but apparently this is not the case.)*
+
+## Configure the Root Folder in Sonarr
+
+Visit the Sonarr "Media Management" configuration page at this URL: http://mini:9992/settings/mediamanagement
+
+Alternatively, you can find the Media Management page from the home screen by clicking "Settings" in the side-nav and
+then clicking on "Media Management".
+
+Click the big blue "Add Root Folder" at the bottom of the page, select the folder named "root-folder" (the path will say `/root-folder/`)
+and then click "Ok".
+
+## Import previously-downloaded TV into Sonarr
+
+In the "Media Management" configuration page, click on the root folder link ("/root-folder").  Wait while Sonarr inspects all
+the shows, and then click the "Import" button at the bottom of the page.
+
+## Configure the Root Folder in Radarr
+
+
+
+
 # Additional Coniguration
+
+The following additional configuration is not required, but were useful to me in my use of the plex stack.
 
 # Disable Downloading of ISOs
 
 In SAB's "Switches" configuration (http://mini:9991/config/switches/), there is an "Unwanted Extensions" field.  Enter "iso" in 
 there and click "Save Changes".
+
+# Configure Additional / Fewer Media Sources
+
+I have two additional sources of media: Bill's Series and Bill's Movies.  You probably don't have these, and should delete them
+from the "volumes" section of the plex container in your `docker-compose.yml`.  Or maybe you have other additional sources,
+in which case, you should configure your`docker-compose.yml` accordingly.
