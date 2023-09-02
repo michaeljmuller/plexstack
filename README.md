@@ -94,7 +94,7 @@ to refer to this server.
 
 # Initial SAB Configuration (Usenet and Download Folders)
 
-★ First, visit the SAB web page.  You'll be presented with a quick-start wizard.  Pick your language and then 
+★ First, visit the SAB web page at http://hostname:9991/.  You'll be presented with a quick-start wizard.  Pick your language and then 
 click "Start Wizard >".  
 
 ★ On the next page, enter the requested information about your usenet service provider.  Check the advanced settings; 
