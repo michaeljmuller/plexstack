@@ -23,6 +23,9 @@ The basic configuration steps need to be performed:
  - Configure Radarr with info about your download client (SAB) and indexer (NZB Geek)
  - Configure Plex, Sonarr, and Radarr to use shared directories (requires compatible permission / user & group ids)
 
+Additional configuration:
+ - Disable ISO
+
 # Clone and set up .env
 
 Clone this project to a working directory, cd into it, and then edit `.env` with your favorite editor to have the
@@ -157,3 +160,9 @@ The configure indexers page for Radarr is here: http://mini:9993/settings/indexe
 
 ★ Enter a name for your indexer, your indexer's URL, and your indexer's API key. Then click "Test" and "Save".  
 
+# Additional Coniguration
+
+# Disable Downloading of ISOs
+
+In SAB's "Switches" configuration (http://mini:9991/config/switches/), there is an "Unwanted Extensions" field.  Enter "iso" in 
+there and click "Save Changes".
