@@ -92,21 +92,16 @@ to refer to this server.
 
 ★ Then re-start the containers with `docker-compose up -d`.
 
-# Configure your usenet service provider into SAB
+# Initial SAB Configuration (Usenet and Download Folders)
 
-★ First, visit the SAB web page.  You'll be presented with a quick-start wizard.  Pick your language and then 
+★ First, visit the SAB web page at http://hostname:9991/.  You'll be presented with a quick-start wizard.  Pick your language and then 
 click "Start Wizard >".  
 
 ★ On the next page, enter the requested information about your usenet service provider.  Check the advanced settings; 
 my usenet service provider allows me 50 simultaneous connections, many more than the default value in SAB.
 Use the "Test Server" button to validate the information and then click "Next >".  
 
-# Configure SAB's Download Folders
-
-Visit the SAB folder configuration page at http://hostname:9991/config/folders/
-
-Alternatively, from the home screen (http://hostname:9991/) click the gear icon to display a system info
-page and then clock on the folder icon in the top menu to get to the folder configuration page.
+★ Click the gear icon to configure the download folders. You'll be directed to the folder configuration area, http://hostname:9991/sabnzbd/config/folders 
 
 ★ Change the Temporary Download Folder to `/incomplete-downloads`.
 
