@@ -6,6 +6,7 @@ thisDir=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 
 function resetDir() {
     find "$1" ! -name .gitignore -type f -exec rm -fv {} +
+    find "$1" -maxdepth 1 -mindepth 1 -type d -exec rm -rf {} +
 }
 
 resetDir $thisDir/radarr/config
