@@ -72,8 +72,15 @@ docker compose logs -f
 
 # Enable access to SAB
 
-SAB will block access to the web site from hosts it doesn't recognize.  To allow access, 
-you need to set a config setting in a config file that is created after sabnzb starts up.
+SAB will block access to the web site from hosts it doesn't recognize.  
+
+If you try to access SAB now at http://hostname:9991/, you'll get this message:
+
+```
+Access denied - Hostname verification failed: https://sabnzbd.org/hostname-check
+```
+
+To allow access, you need to adjust a config setting in a config file that is created after sabnzb starts up.
 
 Assuming you've already started the containers in the previous step, SAB should have created 
 the config file you need to edit.   
@@ -142,6 +149,26 @@ by clicking "Settings" in the side-nav, and then clicking on "Download Clients".
 Note: leave the port at the default 8080; don't change it to 9991. 9991 is the port exposed by docker for access from the outside.
 
 ★ Hit the "Test" button, then hit "Save".
+
+### Weird Error?
+
+If you get an error message that says "Test was aborted due to an error: Object reference not set to an instance of an object" and 
+you see the following in the log:
+
+```
+sonarr   | [v3.0.10.1567] System.NullReferenceException: Object reference not set to an instance of an object
+sonarr   |   at NzbDrone.Core.Download.Clients.Sabnzbd.Sabnzbd+<GetCategories>d__10.MoveNext () [0x000b4] in C:\BuildAgent\work\63739567f01dbcc2\src\NzbDrone.Core\Download\Clients\Sabnzbd\Sabnzbd.cs:233 
+sonarr   |   at System.Linq.Enumerable.TryGetFirst[TSource] (System.Collections.Generic.IEnumerable`1[T] source, System.Func`2[T,TResult] predicate, System.Boolean& found) [0x0004f] in <69ada62907b24213a012734531df1db1>:0 
+sonarr   |   at System.Linq.Enumerable.FirstOrDefault[TSource] (System.Collections.Generic.IEnumerable`1[T] source, System.Func`2[T,TResult] predicate) [0x00000] in <69ada62907b24213a012734531df1db1>:0 
+sonarr   |   at NzbDrone.Core.Download.Clients.Sabnzbd.Sabnzbd.TestCategory () [0x00012] in C:\BuildAgent\work\63739567f01dbcc2\src\NzbDrone.Core\Download\Clients\Sabnzbd\Sabnzbd.cs:434 
+sonarr   |   at NzbDrone.Core.Download.Clients.Sabnzbd.Sabnzbd.Test (System.Collections.Generic.List`1[T] failures) [0x00024] in C:\BuildAgent\work\63739567f01dbcc2\src\NzbDrone.Core\Download\Clients\Sabnzbd\Sabnzbd.cs:273 
+sonarr   |   at NzbDrone.Core.Download.DownloadClientBase`1[TSettings].Test () [0x00006] in C:\BuildAgent\work\63739567f01dbcc2\src\NzbDrone.Core\Download\DownloadClientBase.cs:113 
+```
+
+... then you can fix this by going to Sabnzb's category configuration page (http://hostname:9991/sabnzbd/config/categories/), 
+adding a category (I added one for books), then returning to Sonarr and testing again.
+
+I found this fix on [the sonarr forums](https://forums.sonarr.tv/t/object-reference-error-while-adding-download-client/30990).
 
 ## Configure SAB into Radarr
 
