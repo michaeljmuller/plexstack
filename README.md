@@ -8,6 +8,14 @@ and downloading videos from usenet and then displaying that video on Plex.
 
  - [Overview](#overview)
  - [Clone and set up .env](#clone)
+ - [Start the servers](#startup)
+ - [Enable access to SAB](#sab-access)
+ - [Initial SAB Configuration (Usenet and Download Folders)](#sab-config)
+ - [Configure SAB into Sonarr and Radarr](#sab-rr)
+ - [Configure the Indexer into Sonarr and Radarr](#sab-indexer)
+ - [Configure Root Folders into Sonarr and Radarr](#root-folders)
+ - [Additional Coniguration](#extra)
+
 
 # Overview <a name="overview"></a>
 
@@ -61,7 +69,7 @@ RADARR_PORT=9993
 
 You can leave the ports alone, or change them if you're already using those ports for something else on your host.
 
-# Start the servers
+# Start the servers <a name="startup"></a>
 
 ★ While in PLEXSTACK_HOME, enter the following command to start the servers:
 
@@ -75,7 +83,7 @@ This starts the containers in the background.  You can see the console output of
 docker compose logs -f
 ```
 
-# Enable access to SAB
+# Enable access to SAB <a name="sab-access"></a>
 
 SAB will block access to the web site from hosts it doesn't recognize.  
 
@@ -104,7 +112,7 @@ to refer to this server.
 
 ★ Then re-start the containers with `docker-compose up -d`.
 
-# Initial SAB Configuration (Usenet and Download Folders)
+# Initial SAB Configuration (Usenet and Download Folders) <a name="sab-config"></a>
 
 ★ First, visit the SAB web page at http://hostname:9991/.  You'll be presented with a quick-start wizard.  Pick your language and then 
 click "Start Wizard >".  
@@ -121,7 +129,7 @@ Use the "Test Server" button to validate the information and then click "Next >"
 
 ★ Click "Save Changes"
 
-# Configure SAB into Sonarr and Radarr
+# Configure SAB into Sonarr and Radarr <a name="sab-rr"></a>
 
 ## Get the NZB Key from SAB and allow external access
 
@@ -185,7 +193,7 @@ Perform the same steps again for Radarr (http://hostname:9992/).
 
 ★ Hit the "Test" button, then hit "Save".
 
-# Configure the Indexer into Sonarr and Radarr
+# Configure the Indexer into Sonarr and Radarr <a name="sab-indexer"></a>
 
 ## Configure the Indexer into Sonarr
 
@@ -207,7 +215,7 @@ The configure indexers page for Radarr is here: http://hostname:9993/settings/in
 
 ★ Enter a name for your indexer, your indexer's URL, and your indexer's API key. Then click "Test" and "Save".  
 
-# Configure Root Folders into Sonarr and Radarr
+# Configure Root Folders into Sonarr and Radarr <a name="root-folders"></a>
 
 After movies and series are done downloading, Sonarr and Radarr move them from the `Downloads` folder on the local machine
 to the local `Root Folder`, but we need to configure that folder.
@@ -242,7 +250,7 @@ This is only necessary if you already have movies in Radarr's root folder (in th
 ★ In the "Media Management" configuration page, click on the root folder link ("/root-folder").  Wait while Radarr inspects all
 the movies, and then click the "Import" button at the bottom of the page.
 
-# Additional Coniguration
+# Additional Coniguration <a name="extra"></a>
 
 The following additional configuration is not required, but were useful to me in my use of the plex stack.
 
