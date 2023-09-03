@@ -4,7 +4,12 @@ This project includes a docker-compose file and a directory structure that creat
 a group of docker containers that run web applications (Sonarr and Radarr) for finding 
 and downloading videos from usenet and then displaying that video on Plex.
 
-# Overview
+# Table of Contents
+
+ - [Overview](#overview)
+ - [Clone and set up .env](#clone)
+
+# Overview <a name="overview"></a>
 
 The group of containers includes the following components:
  - A download client (SAB)
@@ -30,7 +35,7 @@ The basic configuration steps need to be performed:
 Additional configuration:
  - Disable ISO
 
-# Clone and set up .env
+# Clone and set up .env <a name="clone"></a>
 
 Clone this project to a working directory, cd into it, and then edit `.env` with your favorite editor to have the
 following contents:
@@ -241,12 +246,12 @@ the movies, and then click the "Import" button at the bottom of the page.
 
 The following additional configuration is not required, but were useful to me in my use of the plex stack.
 
-# Disable Downloading of ISOs
+## Disable Downloading of ISOs
 
 In SAB's "Switches" configuration (http://mini:9991/config/switches/), there is an "Unwanted Extensions" field.  Enter "iso" in 
 there and click "Save Changes".
 
-# Configure Additional / Fewer Media Sources
+## Configure Additional / Fewer Media Sources
 
 I have two additional sources of media: Bill's Series and Bill's Movies.  You probably don't have these, and should delete them
 from the "volumes" section of the plex container in your `docker-compose.yml`.  Or maybe you have other additional sources,
