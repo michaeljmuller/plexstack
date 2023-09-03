@@ -196,7 +196,7 @@ It can be reached through the UI by clicking the "Settings" entry in the side-na
 
 The steps to configure your indexer into Radarr are the same as for Sonarr.
 
-The configure indexers page for Radarr is here: http://mini:9993/settings/indexers
+The configure indexers page for Radarr is here: http://hostname:9993/settings/indexers
 
 ★ From the Indexers configuration page, click the big "plus" icon and then on the protocol your indexer supports.  
 
@@ -209,7 +209,7 @@ to the local `Root Folder`, but we need to configure that folder.
 
 ## Configure the Root Folder in Sonarr
 
-Visit the Sonarr "Media Management" configuration page at this URL: http://mini:9992/settings/mediamanagement
+Visit the Sonarr "Media Management" configuration page at this URL: http://hostname:9992/settings/mediamanagement
 
 Alternatively, you can find the Media Management page from the home screen by clicking "Settings" in the side-nav and
 then clicking on "Media Management".
@@ -219,13 +219,23 @@ and then click "Ok".
 
 ## Import previously-downloaded TV into Sonarr
 
+This is only necessary if you already have TV in the Sonarr's root folder (in the plex library).
+
 ★ In the "Media Management" configuration page, click on the root folder link ("/root-folder").  Wait while Sonarr inspects all
 the shows, and then click the "Import" button at the bottom of the page.
 
 ## Configure the Root Folder in Radarr
 
+Same as with Sonarr; visit the "Media Management" configuration page at: http://hostname:9993/settings/mediamanagement
 
+★ Click the "Add Root Folder" button, select the folder named "root-folder" and click OK.
 
+## Import previously-downloaded TV into Radarr
+
+This is only necessary if you already have movies in Radarr's root folder (in the plex library).
+
+★ In the "Media Management" configuration page, click on the root folder link ("/root-folder").  Wait while Radarr inspects all
+the movies, and then click the "Import" button at the bottom of the page.
 
 # Additional Coniguration
 
