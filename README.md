@@ -227,6 +227,8 @@ then clicking on "Media Management".
 ★ Click the big blue "Add Root Folder" at the bottom of the page, select the folder named "root-folder" (the path will say `/root-folder/`)
 and then click "Ok".
 
+This should be repeated if you're linking with multiple Plex folders; I also added `bill-series`.
+
 ## Import previously-downloaded TV into Sonarr
 
 This is only necessary if you already have TV in the Sonarr's root folder (in the plex library).
@@ -234,11 +236,15 @@ This is only necessary if you already have TV in the Sonarr's root folder (in th
 ★ In the "Media Management" configuration page, click on the root folder link ("/root-folder").  Wait while Sonarr inspects all
 the shows, and then click the "Import" button at the bottom of the page.
 
+Repeat, if necessary, for additional root folders.
+
 ## Configure the Root Folder in Radarr
 
 Same as with Sonarr; visit the "Media Management" configuration page at: http://hostname:9993/settings/mediamanagement
 
 ★ Click the "Add Root Folder" button, select the folder named "root-folder" and click OK.
+
+Repeat as for additional Plex folders; I also added `bill-movies`.
 
 ## Import previously-downloaded TV into Radarr
 
@@ -246,6 +252,8 @@ This is only necessary if you already have movies in Radarr's root folder (in th
 
 ★ In the "Media Management" configuration page, click on the root folder link ("/root-folder").  Wait while Radarr inspects all
 the movies, and then click the "Import" button at the bottom of the page.
+
+Repeat, if necessary, for additional root folders.
 
 <a name="claim-plex"></a>
 # Claim and Configure Plex
