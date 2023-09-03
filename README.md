@@ -14,6 +14,7 @@ and downloading videos from usenet and then displaying that video on Plex.
  - [Configure SAB into Sonarr and Radarr](#sab-rr)
  - [Configure the Indexer into Sonarr and Radarr](#sab-indexer)
  - [Configure Root Folders into Sonarr and Radarr](#root-folders)
+ - [Claim and Configure Plex](#claim-plex)
  - [Additional Coniguration](#extra)
 
 <a name="overview"></a>
@@ -245,6 +246,57 @@ This is only necessary if you already have movies in Radarr's root folder (in th
 
 ★ In the "Media Management" configuration page, click on the root folder link ("/root-folder").  Wait while Radarr inspects all
 the movies, and then click the "Import" button at the bottom of the page.
+
+<a name="claim-plex"></a>
+# Claim and Configure Plex
+
+## Claim Plex
+
+The following steps assume you already have a Plex account.  You can create one at http://plex.tv
+
+★ Go to https://plex.tv/claim and generate a "claim code".  **You now have FOUR MINUTES to complete the 
+rest of the configuration.***  Fortunately, it's pretty easy.
+
+★ Edit docker-compose.yml and add `PLEX_CLAIM` to the environment variables of the plex container, like this:
+
+```
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    environment:
+      - PLEX_CLAIM=claim-yvEzxAynBf2TdQbY-oWz
+      - PUID=${UID:?missing required UID environment variable}
+...
+```
+
+★ Stop and re-start the plex container.  I do this to stop and start all the containers:
+
+```
+$ docker compose down
+$ docker compose up -d
+```
+
+★ Check the logs to see if the claim was successful:
+
+```
+$ docker logs plex
+```
+
+You should see a line like this:
+
+```
+Server claimed successfully, navigate to http://serverip:32400/web to complete plex setup.
+````
+
+If you took too long, then you may need to try again.
+
+★ Edit docker-compose.yml and remove the `PLEX_CLAIM` environment variable.
+
+## Configure Plex
+
+Once the server is claimed, you can go to http://hostname:32400 and follow the steps in the setup wizard. You
+will need to give the server a name and indicate which directories have movies and which ones have TV shows.
 
 <a name="extra"></a>
 # Additional Coniguration 
