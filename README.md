@@ -32,17 +32,6 @@ The following services are used:
    
 ![](diagrams/plex-stack.png)
 
-The basic configuration steps need to be performed:
- - Start the servers
- - Configure SAB with info about your Usenet service provider (Astraweb)
- - Configure Sonarr and Radarr with:
-   - Info about your download client (SAB)
-   - Info about your indexer (NZB Geek)
-   - A location for the media assets after they're done downloading (the "root folders")
-
-Additional configuration:
- - Disable ISO
-
 <a name="clone"></a>
 # Clone and set up .env 
 
