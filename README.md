@@ -255,7 +255,7 @@ the movies, and then click the "Import" button at the bottom of the page.
 The following steps assume you already have a Plex account.  You can create one at http://plex.tv
 
 ★ Go to https://plex.tv/claim and generate a "claim code".  **You now have FOUR MINUTES to complete the 
-rest of the configuration.***  Fortunately, it's pretty easy.
+rest of the configuration.**  Fortunately, it's pretty easy.
 
 ★ Edit docker-compose.yml and add `PLEX_CLAIM` to the environment variables of the plex container, like this:
 
