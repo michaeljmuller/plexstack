@@ -43,6 +43,7 @@ services:
       - ${PLEXSTACK_HOME:-/opt/plexstack}/sonarr/tv:/tv
       - ${PLEXSTACK_HOME:-/opt/plexstack}/sabnzbd/downloads:/downloads
       - ${MEDIA_ROOT:?missing required MEDIA_ROOT environment variable}/series:/root-folder
+      - ${MEDIA_ROOT:?missing required MEDIA_ROOT environment variable}/bill-series:/bill-series
     ports:
       - ${SONARR_PORT:-9992}:8989
     restart: unless-stopped
@@ -58,6 +59,7 @@ services:
       - ${PLEXSTACK_HOME:-/opt/plexstack}/radarr/movies:/movies
       - ${PLEXSTACK_HOME:-/opt/plexstack}/sabnzbd/downloads:/downloads
       - ${MEDIA_ROOT:?missing required MEDIA_ROOT environment variable}/movies:/root-folder
+      - ${MEDIA_ROOT:?missing required MEDIA_ROOT environment variable}/bill-movies:/bill-movies
     ports:
       - ${RADARR_PORT:-9993}:7878
     restart: unless-stopped
