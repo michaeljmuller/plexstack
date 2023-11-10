@@ -313,8 +313,8 @@ The following additional configuration is not required, but were useful to me in
 
 ## Disable Downloading of ISOs
 
-In SAB's "Switches" configuration (http://mini:9991/config/switches/), there is an "Unwanted Extensions" field.  Enter "iso" in 
-there and click "Save Changes".
+~~In SAB's "Switches" configuration (http://mini:9991/config/switches/), there is an "Unwanted Extensions" field.  Enter "iso" in 
+there and click "Save Changes".~~  This doesn't work.  I haven't found any way to make this work.  Please let me know if you've got a simple reliable way to prevent downloading of ISOs.
 
 ## Configure Additional / Fewer Media Sources
 
