@@ -17,9 +17,24 @@
 ---
 version: "2.1"
 services:
+  gluetun:
+    image: qmcgaw/gluetun
+    container_name: gluetun
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - VPN_SERVICE_PROVIDER=ivpn
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=${WG_PRIVATE_KEY}
+      - WIREGUARD_ADDRESSES=${WG_IP}/32
+    ports:
+      - ${SABNZBD_PORT:-9991}:8080
+      - ${SONARR_PORT:-9992}:8989
+      - ${RADARR_PORT:-9993}:7878
   sabnzbd:
     image: lscr.io/linuxserver/sabnzbd:latest
     container_name: sabnzbd
+    network_mode: "service:gluetun"
     environment:
       - PUID=${UID:?missing required UID environment variable}
       - PGID=${GID:?missing required GID environment variable}
@@ -28,12 +43,11 @@ services:
       - ${PLEXSTACK_HOME:-/opt/plexstack}/sabnzbd/config:/config
       - ${PLEXSTACK_HOME:-/opt/plexstack}/sabnzbd/downloads:/downloads
       - ${PLEXSTACK_HOME:-/opt/plexstack}/sabnzbd/incomplete-downloads:/incomplete-downloads
-    ports:
-      - ${SABNZBD_PORT:-9991}:8080
     restart: unless-stopped      
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
+    network_mode: "service:gluetun"
     environment:
       - PUID=${UID:?missing required UID environment variable}
       - PGID=${GID:?missing required GID environment variable}
@@ -44,12 +58,11 @@ services:
       - ${PLEXSTACK_HOME:-/opt/plexstack}/sabnzbd/downloads:/downloads
       - ${MEDIA_ROOT:?missing required MEDIA_ROOT environment variable}/series:/root-folder
       - ${MEDIA_ROOT:?missing required MEDIA_ROOT environment variable}/bill-series:/bill-series
-    ports:
-      - ${SONARR_PORT:-9992}:8989
     restart: unless-stopped
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
+    network_mode: "service:gluetun"
     environment:
       - PUID=${UID:?missing required UID environment variable}
       - PGID=${GID:?missing required GID environment variable}
@@ -60,8 +73,6 @@ services:
       - ${PLEXSTACK_HOME:-/opt/plexstack}/sabnzbd/downloads:/downloads
       - ${MEDIA_ROOT:?missing required MEDIA_ROOT environment variable}/movies:/root-folder
       - ${MEDIA_ROOT:?missing required MEDIA_ROOT environment variable}/bill-movies:/bill-movies
-    ports:
-      - ${RADARR_PORT:-9993}:7878
     restart: unless-stopped
   plex:
     image: lscr.io/linuxserver/plex:latest

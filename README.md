@@ -7,6 +7,7 @@ and downloading videos from usenet and then displaying that video on Plex.
 # Table of Contents
 
  - [Overview](#overview)
+ - [Set up Wireguard](#vpn)
  - [Clone and set up .env](#clone)
  - [Start the servers](#startup)
  - [Enable access to SAB](#sab-access)
@@ -25,13 +26,34 @@ The group of containers includes the following components:
  - A movie search tool (Radarr)
  - A TV search tool (Sonarr)
  - A video asset database and streaming application (Plex)
+ - A VPN (gluetun)
 
 The following services are used:
  - An NZB indexer (such as NZB Geek)
  - A Usenet service provider (such as Astraweb)
  - Plex
+ - A VPN provider (such as IVPN)
    
 ![](diagrams/plex-stack.png)
+
+<a name="vpn"></a>
+# Set up Wireguard
+
+This stack is configured to use Wireguard rather than OpenVPN.
+
+The first thing to do is generate a Wireguard keypair. I did this by starting the `linuxserver/wireguard` docker image,
+exec-ing into it, and then executing the following command:
+
+```
+wg genkey | tee privatekey | wg pubkey > publickey
+```
+
+Then I entered the public and private keys into my password manager.
+
+Next, I went to my VPN provider (IVPN) and found the Wireguard key management tool.  I added the public key and was given an IP address.  This address went
+into my password manager along side the public/private key.
+
+The private key and IP address are configured in the next section.
 
 <a name="clone"></a>
 # Clone and set up .env 
@@ -48,6 +70,8 @@ PLEXSTACK_HOME=/opt/plexstack
 SABNZBD_PORT=9991
 SONARR_PORT=9992
 RADARR_PORT=9993
+WG_PRIVATE_KEY=ddsljfk439587lfjlkjf+sdflkj9457498=
+WG_IP=123.12.34.56
 ```
 
 ★ Set the UID and GID to be your user's UID and GID (which you can find with the `id` command).
@@ -57,6 +81,8 @@ RADARR_PORT=9993
 ★ Set MEDIA_ROOT to be the root of where your TV and Movies are stored.
 
 ★ PLEXSTACK_HOME should be the working directory where you cloned this repository.
+
+★ WG_PRIVATE_KEY and WG_IP should be the values obtained in the previous setup step.
 
 You can leave the ports alone, or change them if you're already using those ports for something else on your host.
 
