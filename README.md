@@ -177,7 +177,8 @@ by clicking "Settings" in the side-nav, and then clicking on "Download Clients".
 ★ You'll need to enter the following information:
 
  - Name: SAB (or whatever you want to name it)
- - Host: sabnzbd (this is the hostname docker compose set up for the containers to use when talking to each other)
+ - ~~Host: sabnzbd (this is the hostname docker compose set up for the containers to use when talking to each other)~~
+ - Host: localhost (with the gluetun VPN client, everything appears to be on localhost)
  - API Key: enter the NZB you copied from SAB in the previous step
 
 Note: leave the port at the default 8080; don't change it to 9991. 9991 is the port exposed by docker for access from the outside.
@@ -210,7 +211,7 @@ Perform the same steps again for Radarr (http://hostname:9992/).
 
 ★ From the Download Clients configuration page, click the big "plus" icon, and then click on "SABnzbd" in the "Usenet" section.
 
-★ Enter the name (SAB), host (sabnzbd), and API Key (from SAB; the same key you put in Sonarr).
+★ Enter the name (SAB), host (localhost, not sabnzbd), and API Key (from SAB; the same key you put in Sonarr).
 
 ★ Hit the "Test" button, then hit "Save".
 
