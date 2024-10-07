@@ -16,6 +16,7 @@ and downloading videos from usenet and then displaying that video on Plex.
  - [Configure the Indexer into Sonarr and Radarr](#sab-indexer)
  - [Configure Root Folders into Sonarr and Radarr](#root-folders)
  - [Claim and Configure Plex](#claim-plex)
+ - [Configure External Authentication](#ext-auth)
  - [Additional Coniguration](#extra)
 
 <a name="overview"></a>
@@ -332,6 +333,15 @@ If you took too long, then you may need to try again.
 
 Once the server is claimed, you can go to http://hostname:32400 and follow the steps in the setup wizard. You
 will need to give the server a name and indicate which directories have movies and which ones have TV shows.
+
+<a name="ext-auth></a>
+# Configure External Authentication
+
+Sonarr and Radarr are now requiring authenticaion to be configured by default, but you can [configure 
+external authenticaion] to specify that you're using external authenticaion to disable this.
+
+I did this by editing `config.xml` in `/opt/plexstack/sonarr/config` and `/opt/plexstack/sonarr/config` (which 
+are mounted into the docker containers) and then restarting the docker containers.
 
 <a name="extra"></a>
 # Additional Coniguration 
